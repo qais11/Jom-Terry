@@ -1,6 +1,6 @@
 angular.module('myApp').service('gameService', function(){
 this.play = function(){
-   var app = new PIXI.Application(1500, 700, {backgroundColor : "#000"});
+   var app = new PIXI.Application(700, 1000, {backgroundColor : "#000"});
      document.body.appendChild(app.view);
      // create a new Sprite from an image path
      var jerry = PIXI.Sprite.fromImage('../assets/Jerry_scared.gif')

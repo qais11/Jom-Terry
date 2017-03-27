@@ -6,6 +6,12 @@ angular.module('myApp', ['ui.router'])
                 templateUrl: "./js/login/login.html",
                 controller:"loginCtrl"
               })
+            .state('welcome', {
+                url:'/welcome',
+                templateUrl: "./js/welcome/welcome.html",
+                controller:"welcomeCtrl"
+              })
+
             .state('game', {
                 url:'/game',
                 templateUrl: "./js/game/game.html",
