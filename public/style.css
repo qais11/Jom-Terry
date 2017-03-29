@@ -2,7 +2,9 @@
   outline: none;
 }
 body{
-background-color: lightblue;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 .logo-img-container{
   width: 80vw;
@@ -40,4 +42,22 @@ background-color: lightblue;
   background: -webkit-linear-gradient(#ffd966 ,#f90 50% ,#ffd966);
   background: linear-gradient(#ffd966 ,#f90 50% ,#ffd966);
   box-shadow: 5px  5px 4px grey;
+
+}
+#game_body_wrapper{
+text-align: center;
+width: 100vw;
+height: 100vh;
+background-color: black;
+top: 0;
+}
+.welcome_wrapper ,.login_wrapper{
+  background-image: url("./assets/body-background.jpg");
+  background-repeat: no-repeat;
+  background-position: top  center ;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 35vh;
+  background-size: cover;
+
 }

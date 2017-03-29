@@ -16,6 +16,10 @@ angular.module('myApp', ['ui.router'])
                 url:'/game',
                 templateUrl: "./js/game/game.html",
                 controller:"game-controller"
+              })
+            .state('about', {
+                url:'/about',
+                templateUrl: "./js/about/about.html",
               });
 
 $urlRouterProvider
