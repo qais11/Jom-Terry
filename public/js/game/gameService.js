@@ -248,18 +248,11 @@ this.play = function(){
     });
     function gameOver(){
       document.getElementById('game-over').style.display = 'block';
-    }
+      document.getElementById('game-over').style.cursor = 'auto';
+      document.getElementById('game-over').style.outline= 'none';
 
-    // function losingAttemp() {
-    //   slipperContainer.removeChild(slipperArr[slipperArr.length -1]);
-    //   slipperArr.pop();
-    //
-    // }
-    // function gainAttemp(){
-    //   slipperArr.shift(slipper);
-    //   console.log(slipperContainer);
-    //   slipperContainer.addChild(slipperContainer)
-    // }
+
+    }
 
     var pointer = PIXI.Sprite.fromImage('../assets/pointer.png')
     // center the sprite's anchor point

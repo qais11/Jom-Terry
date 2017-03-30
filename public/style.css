@@ -75,9 +75,10 @@ body{
 }
 #game-over > div {
   position: absolute;
-  top: 30%;
-  left: 30%;
+  top: 25%;
+  left: 25%;
   background: black;
+  padding: 20px;
 }
 .quit-btn{
   margin-left: 5px;
