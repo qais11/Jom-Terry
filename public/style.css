@@ -45,11 +45,12 @@ body{
 
 }
 #game_body_wrapper{
-text-align: center;
-width: 100vw;
-height: 100vh;
-background-color: black;
-top: 0;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  top: 0;
+  position: fixed;
 }
 .welcome_wrapper ,.login_wrapper{
   background-image: url("./assets/body-background.jpg");
@@ -60,4 +61,24 @@ top: 0;
   padding-bottom: 35vh;
   background-size: cover;
 
+}
+#game-over{
+  width: 100%;
+  height: 100%;
+  background: black;
+  position: fixed;
+  z-index: 10000000;
+  background: rgba(0, 0, 0, 0.63);
+  display: none;
+  text-align: center;
+
+}
+#game-over > div {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  background: black;
+}
+.quit-btn{
+  margin-left: 5px;
 }

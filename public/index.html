@@ -7,8 +7,14 @@
     <link rel="icon" href="./assets/icon.png">
   </head>
   <body ng-controller="mainCtrl">
-
-<ui-view></ui-view>
+    <ui-view></ui-view>
+    <div id='game-over'>
+      <div >
+        <img src="./assets/gameover.png" class="game-over-logo" />
+      </br>
+        <a class="play-button" ui-sref="game">Play again</a><span><a class="play-button quit-btn" ui-sref="login">Quit</a></span>
+      </div>
+    </div>
 
 
 

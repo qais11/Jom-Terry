@@ -1,8 +1,12 @@
 angular.module('myApp').service('gameService', function(){
 this.play = function(){
    var app = new PIXI.Application( 1220 , 615 ,{ backgroundColor: 000 ,resolution: window.devicePixelRatio , autoResize: true});
-   var moveJerry
+   var scoreNum = 0;
+   var score;
+   var hit = false;
+   var slipperArr = [];
    //----------------------------
+
    var gameWrapper = document.querySelector("#game_body_wrapper")
    gameWrapper.appendChild(app.view);
    //------------------------------
@@ -41,27 +45,17 @@ this.play = function(){
           texture2.frame = rect2;
           jerry = new PIXI.Sprite(texture2)
           //
-          moveJerry = function(){
+          jerry.interactive = true;
+          jerry.anchor.set(0.5);
+          jerry.scale.set(0.5);
+          jerry.width = app.view.width  / 10;
+          jerry.height = app.view.height / 6;
+          jerry.position.y = app.view.height/2.7 - (jerry.height / 2);
+          // move the sprite to the center of the screen
+          jerry.x = -90 ;
+          // app.stage.on('pointerdown', movejerry);
+          app.stage.addChildAt(jerry, 3)
 
-
-
-
-            jerry.interactive = true;
-            jerry.anchor.set(0.5);
-            jerry.scale.set(0.5);
-            jerry.width = app.view.width  / 10;
-            jerry.height = app.view.height / 6;
-            jerry.position.y = app.view.height/2.7 - (jerry.height / 2);
-            // move the sprite to the center of the screen
-            jerry.x = app.renderer.width /2 - 600 ;
-            // app.stage.on('pointerdown', movejerry);
-            app.stage.addChild(jerry)
-
-
-
-              animationLoop()
-
-          }
           idle2 = setInterval(function(){
             if(rect2.x >= 650 * 4) {
               rect2.x = 0;
@@ -70,21 +64,39 @@ this.play = function(){
             rect2.x += 650;
             }
 
-          }, 100);
-          setInterval(()=>{
-            jerry.position.x += 1
-          },1)
-          app.ticker.add(function(delta) {
-            jerry.position.x += 1
-          })
-          setInterval(()=>{
-            moveJerry()
+          }, 80);
+          // setInterval(()=>{
+          //   jerry.position.x += 1
+          // },1)
+
+          setTimeout(()=>{
+            app.ticker.add(function(delta) {
+              // console.log(jerry.position.x , app.view.width - 120);
+              if(jerry.position.x >= app.view.width + 120) {
+                console.log('E');
+                jerry.position.x = -800;
+              }
+              jerry.position.x += 5;
+            })
           } , 4000)
+//-----------------------------------------------------
 
+    function jerryHit(){
+      if(jerry.x >= pointer.x -15 || jerry.x >= pointer.x + 15){
+        scoreNum += 50;
+        score.setText(scoreNum)
+        hit = true;
+        jerry.x = -600;
+        // console.log(hit, 2);
+        setTimeout(function(){
+          hit = false;
+          console.log(hit, 2);
+        } , 1000)
 
-// setInterval(function(){console.log(jerry.x)},500)
+      }
+    }
 
-          //--------------------------------------------------- jeery's function finished
+//--------------------------------------------------- jeery's function finished
           function moveTom(){
             clearInterval(idle)
             idle = setInterval(function(){
@@ -109,12 +121,27 @@ this.play = function(){
           tom.position.y = app.view.height  - (tom.height / 2);
           // move the sprite to the center of the screen
           tom.x = app.renderer.width /2 ;
-          app.stage.on('pointerdown', moveTom);
+          app.stage.on('pointerdown', onClick);
           // app.stage.on('pointerdown', moveJerry);
           app.stage.addChild(tom)
 
           animationLoop()
+          function onClick(){
+          jerryHit();
+          console.log(hit , 1);
+          moveTom();
+          if(hit === false){
+          slipperContainer.removeChild(slipperArr[slipperArr.length -1]);
+          slipperArr.pop();
+        }
+        if(slipperArr.length === 0){
+          gameOver();
+        }
+
+
       }
+
+    }
       //-----------------------------------
 
       //----------------------------------
@@ -153,6 +180,24 @@ this.play = function(){
       currentScore.position.x = app.view.width /2 - 250;
       currentScore.position.y = app.view.height/11 - (currentScore.height/2)
 
+
+      score = new PIXI.Text(scoreNum, {
+          fontFamily:'Snippet',
+          fontSize: 26,
+          fill: '#000',
+          stroke: '#C6A53C',
+          strokeThickness: 2,
+          align: 'left',
+          fontWeight: 'bold'
+
+      });
+        score.anchor.set(0.5)
+        score.position.x = app.view.width /2 - 140;
+        score.position.y = app.view.height/11 - (score.height/2)
+
+
+
+
     var HighScore = new PIXI.Text('High Score :', {
         fontFamily:'Snippet',
         fontSize: 26,
@@ -163,10 +208,13 @@ this.play = function(){
         fontWeight: 'bold'
 
     });
-
       HighScore.anchor.set(0.5)
       HighScore.position.x = app.view.width /2 -250;
       HighScore.position.y = app.view.height/6 - (currentScore.height/2);
+
+
+
+
       var Attemps = new PIXI.Text('Attemps :', {
           fontFamily:'Snippet',
           fontSize: 26,
@@ -182,9 +230,9 @@ this.play = function(){
         Attemps.position.y = app.view.height/ 10 ;
 
 
-      var container = new PIXI.Container();
+      var slipperContainer = new PIXI.Container();
       var slipperTexture = PIXI.Texture.fromImage('./assets/slipper.png');
-      var slipperArr = []
+      slipperArr = []
         for (var i = 0; i < 6; i++) {
             var slipper = new PIXI.Sprite(slipperTexture);
             slipperArr.push(slipper)
@@ -192,33 +240,37 @@ this.play = function(){
             slipper.width = 20;
             slipper.height = 30;
             slipper.x = (i % 6) * 40;
-            container.x = app.view.width /2 + 150;
-            container.y = app.view.height/ 10;
+            slipperContainer.x = app.view.width /2 + 150;
+            slipperContainer.y = app.view.height/ 10;
     }
     slipperArr.forEach(function(val){
-      container.addChild(val);
+      slipperContainer.addChild(val);
     });
-    function losingAttemp() {
-      container.removeChild(slipperArr[slipperArr.length -1]);
-      slipperArr.pop();
-      console.log(slipperArr);
+    function gameOver(){
+      document.getElementById('game-over').style.display = 'block';
     }
+
+    // function losingAttemp() {
+    //   slipperContainer.removeChild(slipperArr[slipperArr.length -1]);
+    //   slipperArr.pop();
+    //
+    // }
+    // function gainAttemp(){
+    //   slipperArr.shift(slipper);
+    //   console.log(slipperContainer);
+    //   slipperContainer.addChild(slipperContainer)
+    // }
 
     var pointer = PIXI.Sprite.fromImage('../assets/pointer.png')
     // center the sprite's anchor point
-      pointer.anchor.set(0.7);
+      pointer.anchor.set(0.5);
       pointer.scale.set(0.5);
-      pointer.position.y = app.view.height/3 - (pointer.height/2);
-      app.stage.addChild(pointer)             //ADDING SPRITES TO THE CANVAS
+      pointer.position.y = app.view.height/3 - (pointer.height/2) - 15;
+      // app.stage.addChild()             //ADDING SPRITES TO THE CANVAS
 
 
     //--------------------------------------
-     app.stage.addChild(dashBoard)
-    //  app.stage.addChild(tom)
-     app.stage.addChild(currentScore)
-     app.stage.addChild(HighScore)
-     app.stage.addChild(Attemps)
-     app.stage.addChild(container)
+     app.stage.addChild(dashBoard, currentScore, HighScore, Attemps ,slipperContainer,  pointer ,score)
 
 //-------------------------------------------
 
@@ -230,9 +282,6 @@ this.play = function(){
              var log = console.log;
              event = event || window.event; // IE-ism
 
-             // If pageX/Y aren't available and clientX/Y are,
-             // calculate pageX/Y - logic taken from jQuery.
-             // (This is to support old IE)
              if (event.pageX == null && event.clientX != null) {
                  eventDoc = (event.target && event.target.ownerDocument) || document;
                  doc = eventDoc.documentElement;
@@ -246,18 +295,9 @@ this.play = function(){
                    (doc && doc.clientTop  || body && body.clientTop  || 0 );
              }
 
-             // Use event.pageX / event.pageY here
              app.ticker.add(function(delta) {
-                 // just for fun, let's rotate mr rabbit a little
-                 // delta is 1 if running at 100% performance
-                 // creates frame-independent tranformation
                  tom.position.x = event.pageX;
                  pointer.position.x = event.pageX;
-                //  pointer.position.y = event.pageY;
-                // console.log(jerry.x);
-                if (jerry.x >= 1220){
-                  moveJerry();
-                }
              });
          }
      };
