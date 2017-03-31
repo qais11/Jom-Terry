@@ -1,0 +1,30 @@
+{
+  "name": "jom-and-terry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qais11/Jom-Terry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qais11/Jom-Terry/issues"
+  },
+  "homepage": "https://github.com/qais11/Jom-Terry#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "config": "^1.25.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "express-session": "^1.15.2",
+    "gitignore": "^0.6.0",
+    "massive": "^2.6.0",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1"
+  }
+}

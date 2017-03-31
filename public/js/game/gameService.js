@@ -51,9 +51,7 @@ this.play = function(){
           jerry.width = app.view.width  / 10;
           jerry.height = app.view.height / 6;
           jerry.position.y = app.view.height/2.7 - (jerry.height / 2);
-          // move the sprite to the center of the screen
           jerry.x = -90 ;
-          // app.stage.on('pointerdown', movejerry);
           app.stage.addChildAt(jerry, 3)
 
           idle2 = setInterval(function(){
@@ -65,9 +63,6 @@ this.play = function(){
             }
 
           }, 80);
-          // setInterval(()=>{
-          //   jerry.position.x += 1
-          // },1)
 
           setTimeout(()=>{
             app.ticker.add(function(delta) {
@@ -119,10 +114,8 @@ this.play = function(){
           tom.width = app.view.width  / 2.5;
           tom.height = app.view.height / 1.5;
           tom.position.y = app.view.height  - (tom.height / 2);
-          // move the sprite to the center of the screen
           tom.x = app.renderer.width /2 ;
           app.stage.on('pointerdown', onClick);
-          // app.stage.on('pointerdown', moveJerry);
           app.stage.addChild(tom)
 
           animationLoop()
