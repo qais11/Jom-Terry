@@ -1,6 +1,9 @@
 angular.module('myApp')
-.service('welcomeService' , function(){
-
-this.test2 = "it's working"
-
+.service('welcomeService' , function($http){
+  this.getCurrentUser = function (){
+    return $http({
+             method: 'GET',
+             url: '/getCurrentUser'
+         });
+       }
 })

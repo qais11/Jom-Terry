@@ -2,6 +2,8 @@ const express = require('express');
 const {json} = require('body-parser');
 const cors = require('cors');
 const session = require('express-session')
+const massive = require('massive')
+const db = require('./db')
 const passport = require('passport')
 const FacebookStrategy = require('passport-facebook').Strategy;
 const config = require('./config.js')
@@ -23,7 +25,18 @@ passport.use(new FacebookStrategy({
   clientSecret: config.facebook.clientSecret,
   callbackURL: 'http://localhost:3000/auth/facebook/callback'
 }, function(token, refreshToken, profile, done) {
-  return done(null, profile);
+  db.findUser(profile.id, function(err, users) {
+    if (err) next(err)
+    if (users.length) {
+      return done(null, users[0]);
+    }
+    db.createUser([profile.displayName, profile.id], function(err, newUsers) {
+      console.log(newUsers)
+      return done(null, newUsers[0])
+    })
+  })
+  // session.user = profile;
+  // return done(null, profile);
 }));
 
 
@@ -39,16 +52,35 @@ passport.deserializeUser(function(user, done) {
 
 app.get('/auth/facebook', passport.authenticate('facebook'))
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
-  successRedirect: '/#!/welcome',failureRedirect:'/'
+  successRedirect: "/#!/welcome" ,failureRedirect:'/'
 })
 )
-app.get("/me", function(req,res) {
+app.get("/getCurrentUser", function(req,res) {
 	res.status(200).send(req.user);
 })
 
+app.get('/getHighScore', function(req, res, next) {
+  if (!req.user) req.user = {id: 3}
+  db.getHighScore([req.user.id], function(err, highScores) {
+    if (err) {
+      return next(err)
+    }
+    return res.status(200).send(highScores[0])
+  })
+})
+app.post('/updateHighScore', function(req, res, next){
+  console.log(req.body.score);
+  if (!req.user) req.user = {id: 3}
+  db.update_high_score([req.user.id, parseInt(req.body.score)], function(err, score){
+    if (err){
+      return next(err)
+    }
 
-
-
+    else{
+    res.status(200).json(score);
+  }
+  })
+})
 
 
 

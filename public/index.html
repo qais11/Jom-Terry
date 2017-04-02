@@ -9,10 +9,11 @@
   <body ng-controller="mainCtrl">
     <ui-view></ui-view>
     <div id='game-over'>
-      <div >
-        <img src="./assets/gameover.png" class="game-over-logo" />
+      <div>
+        <img id="game-over-logo" src="./assets/gameover.png" class="game-over-logo" />
       </br>
-        <a class="play-button" ng-click="reload()">Play again</a><span><a class="play-button quit-btn" ng-click="goHome()">Quit</a></span>
+        <a class="play-button" ng-click="reload()">Play again</a> </br>
+        <a class="play-button quit-btn" ng-click="goHome()">Quit</a>
       </div>
     </div>
 

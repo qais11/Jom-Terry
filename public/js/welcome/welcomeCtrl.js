@@ -1,4 +1,9 @@
 angular.module('myApp')
 .controller('welcomeCtrl' , function($scope ,welcomeService ){
-  $scope.test2 = welcomeService.test2
+  $scope.getCurrentUser = welcomeService.getCurrentUser()
+  .then(function(response){
+      $scope.data = response.data
+    console.log(response);
+    return response;
+  })
 })

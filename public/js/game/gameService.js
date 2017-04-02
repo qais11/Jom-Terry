@@ -1,10 +1,16 @@
-angular.module('myApp').service('gameService', function(){
+angular.module('myApp').service('gameService', function($http){
 this.play = function(){
    var app = new PIXI.Application( 1220 , 615 ,{ backgroundColor: 000 ,resolution: window.devicePixelRatio , autoResize: true});
    var scoreNum = 0;
    var score;
    var hit = false;
    var slipperArr = [];
+   var highScoreNum =0;
+   $http.get("/getHighScore").then(function(response){
+     console.log(response);
+     highScoreNum = response.data.high_score
+     Hscore.setText(highScoreNum)
+   })
    //----------------------------
 
    var gameWrapper = document.querySelector("#game_body_wrapper")
@@ -66,9 +72,7 @@ this.play = function(){
 
           setTimeout(()=>{
             app.ticker.add(function(delta) {
-              // console.log(jerry.position.x , app.view.width - 120);
               if(jerry.position.x >= app.view.width + 120) {
-                console.log('E');
                 jerry.position.x = -800;
               }
               jerry.position.x += 5;
@@ -77,15 +81,13 @@ this.play = function(){
 //-----------------------------------------------------
 
     function jerryHit(){
-      if(jerry.x >= pointer.x -15 || jerry.x >= pointer.x + 15){
+      if(jerry.x >= pointer.x -10 && jerry.x <= pointer.x +10){
         scoreNum += 50;
         score.setText(scoreNum)
         hit = true;
         jerry.x = -600;
-        // console.log(hit, 2);
         setTimeout(function(){
           hit = false;
-          console.log(hit, 2);
         } , 1000)
 
       }
@@ -120,14 +122,19 @@ this.play = function(){
 
           animationLoop()
           function onClick(){
+          console.log(jerry.x);
           jerryHit();
-          console.log(hit , 1);
           moveTom();
           if(hit === false){
           slipperContainer.removeChild(slipperArr[slipperArr.length -1]);
           slipperArr.pop();
         }
         if(slipperArr.length === 0){
+          $http.post("/updateHighScore" ,{score: scoreNum}).then(function(response){
+            console.log(response);
+            highScoreNum = response.data
+          })
+
           gameOver();
         }
 
@@ -135,9 +142,9 @@ this.play = function(){
       }
 
     }
-      //-----------------------------------
+//-----------------------------------
 
-      //----------------------------------
+//----------------------------------
       function animationLoop(){
 
         requestAnimationFrame(animationLoop);
@@ -146,7 +153,7 @@ this.play = function(){
       }
 
 
-     //-------------------------------------------
+//-------------------------------------------
 
 
 //-------------------------------------------------
@@ -188,8 +195,19 @@ this.play = function(){
         score.position.x = app.view.width /2 - 140;
         score.position.y = app.view.height/11 - (score.height/2)
 
+        Hscore = new PIXI.Text(highScoreNum, {
+            fontFamily:'Snippet',
+            fontSize: 26,
+            fill: '#000',
+            stroke: '#C6A53C',
+            strokeThickness: 2,
+            align: 'left',
+            fontWeight: 'bold'
 
-
+        });
+          Hscore.anchor.set(0.5)
+          Hscore.position.x = app.view.width /2 - 160;
+          Hscore.position.y = app.view.height/6 - (Hscore.height/2)
 
     var HighScore = new PIXI.Text('High Score :', {
         fontFamily:'Snippet',
@@ -236,7 +254,7 @@ this.play = function(){
             slipperContainer.x = app.view.width /2 + 150;
             slipperContainer.y = app.view.height/ 10;
     }
-    slipperArr.forEach(function(val){
+      slipperArr.forEach(function(val){
       slipperContainer.addChild(val);
     });
     function gameOver(){
@@ -256,7 +274,7 @@ this.play = function(){
 
 
     //--------------------------------------
-     app.stage.addChild(dashBoard, currentScore, HighScore, Attemps ,slipperContainer,  pointer ,score)
+     app.stage.addChild(dashBoard, currentScore, HighScore ,  Hscore, Attemps ,slipperContainer,  pointer ,score)
 
 //-------------------------------------------
 
@@ -265,7 +283,6 @@ this.play = function(){
          document.onmousemove = handleMouseMove;
          function handleMouseMove(event) {
              var dot, eventDoc, doc, body, pageX, pageY;
-             var log = console.log;
              event = event || window.event; // IE-ism
 
              if (event.pageX == null && event.clientX != null) {
