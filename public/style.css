@@ -95,3 +95,29 @@ body{
   text-shadow: 2px 2px 2px lightyellow;
   color: #9c1414;
 }
+.about-background{
+  text-align: center;
+  font-family:'Oswald', sans-serif;
+  font-size: 28pt;
+  background-image: -webkit-linear-gradient(top,  #2F2F2F, #191919);
+   background-image: -moz-linear-gradient(top,  #2F2F2F, #191919);
+   background-image: -ms-linear-gradient(top,  #2F2F2F, #191919);
+   background-image: -o-linear-gradient(top,  #2F2F2F, #191919);
+   background-image: linear-gradient(to bottom,  #2F2F2F, #191919);
+   color:white;
+   padding: 30px;
+}
+em{
+  color:red;
+}
+.signture{
+  color: lightblue;
+}
+.about-title{
+  color:red;
+  font-size:40pt;
+}
+.thanks{
+  color:lightyellow;
+  font-size: 26pt;
+}
