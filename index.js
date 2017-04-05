@@ -24,7 +24,7 @@ passport.use(new FacebookStrategy({
   clientID: config.facebook.clientId,
   clientSecret: config.facebook.clientSecret,
   callbackURL: 'http://localhost:3000/auth/facebook/callback'
-}, function(token, refreshToken, profile, done) {
+}, function (token, refreshToken, profile, done) {
   db.findUser(profile.id, function(err, users) {
     if (err) next(err)
     if (users.length) {
@@ -55,23 +55,23 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {
   successRedirect: "/#!/welcome" ,failureRedirect:'/'
 })
 )
-app.get("/getCurrentUser", function(req,res) {
+app.get("/getCurrentUser",(req,res)=>{
 	res.status(200).send(req.user);
 })
 
-app.get('/getHighScore', function(req, res, next) {
+app.get('/getHighScore',(req, res, next)=> {
   if (!req.user) req.user = {id: 3}
-  db.getHighScore([req.user.id], function(err, highScores) {
+  db.getHighScore([req.user.id], (err, highScores) =>{
     if (err) {
       return next(err)
     }
     return res.status(200).send(highScores[0])
   })
 })
-app.post('/updateHighScore', function(req, res, next){
+app.post('/updateHighScore', (req, res, next)=>{
   console.log(req.body.score);
   if (!req.user) req.user = {id: 3}
-  db.update_high_score([req.user.id, parseInt(req.body.score)], function(err, score){
+  db.update_high_score([req.user.id, parseInt(req.body.score)],(err, score)=>{
     if (err){
       return next(err)
     }

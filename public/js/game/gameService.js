@@ -1,25 +1,24 @@
 angular.module('myApp').service('gameService', function($http){
 this.play = function(){
-   var app = new PIXI.Application( 1220 , 615 ,{ backgroundColor: 000 ,resolution: window.devicePixelRatio , autoResize: true});
-   var scoreNum = 0;
-   var score;
-   var hit = false;
-   var slipperArr = [];
-   var highScoreNum =0;
-   $http.get("/getHighScore").then(function(response){
-     console.log(response);
+   let app = new PIXI.Application( 1220 , 615 ,{ backgroundColor: 000 ,resolution: window.devicePixelRatio , autoResize: true});
+   let scoreNum = 0;
+   let score;
+   let hit = false;
+   let slipperArr = [];
+   let highScoreNum =0;
+   $http.get("/getHighScore").then((response)=>{
      highScoreNum = response.data.high_score
      Hscore.setText(highScoreNum)
    })
    //----------------------------
 
-   var gameWrapper = document.querySelector("#game_body_wrapper")
+   let gameWrapper = document.querySelector("#game_body_wrapper")
    gameWrapper.appendChild(app.view);
    //------------------------------
 
-    var texture = PIXI.Texture.fromImage('./assets/background2copy.jpg');
-    var texture2 = new PIXI.Texture(texture)
-    var tilingSprite = new PIXI.extras.TilingSprite(
+    let texture = PIXI.Texture.fromImage('./assets/background2copy.jpg');
+    let texture2 = new PIXI.Texture(texture)
+    let tilingSprite = new PIXI.extras.TilingSprite(
     texture2 , app.renderer.width, app.renderer.height
     );
 
@@ -30,22 +29,22 @@ this.play = function(){
 
 
 
-      var container = new PIXI.Container()
+      let container = new PIXI.Container()
       PIXI.loader
       .add('spritSheet1' , "../assets/tom/tom_sprite_sheet.png")
-      .add('spritSheet2' , "../assets/jerry/jerry_sprite_sheet.png")
+      .add('spritSheet2' , "../assets/jerry/jerry-sprit-sheet-2.png")
       .load(setup)
 
-      var tom;
-      var idle;
-      var jerry;
-      var idle2;
+      let tom;
+      let idle;
+      let jerry;
+      let idle2;
       function setup(){
           app.stage.interactive = true;
-          var rect = new PIXI.Rectangle(0,0,900,1000 );
-          var rect2 = new PIXI.Rectangle(0,0,650,650 );
-          var texture = PIXI.loader.resources["spritSheet1"].texture;
-          var texture2 = PIXI.loader.resources["spritSheet2"].texture;
+          let rect = new PIXI.Rectangle(0,0,900,1000 );
+          let rect2 = new PIXI.Rectangle(0,0,650,650 );
+          let texture = PIXI.loader.resources["spritSheet1"].texture;
+          let texture2 = PIXI.loader.resources["spritSheet2"].texture;
           texture.frame = rect;
           tom = new PIXI.Sprite(texture)
           texture2.frame = rect2;
@@ -61,14 +60,14 @@ this.play = function(){
           app.stage.addChildAt(jerry, 3)
 
           idle2 = setInterval(function(){
-            if(rect2.x >= 650 * 4) {
+            if(rect2.x >= 650 * 6) {
               rect2.x = 0;
             }
             else{jerry.texture.frame = rect2;
             rect2.x += 650;
             }
 
-          }, 80);
+          }, 55.5);
 
           setTimeout(()=>{
             app.ticker.add(function(delta) {
@@ -96,7 +95,7 @@ this.play = function(){
 //--------------------------------------------------- jeery's function finished
           function moveTom(){
             clearInterval(idle)
-            idle = setInterval(function(){
+            idle = setInterval(()=>{
               if(rect.x >= 900 * 5) {
                 rect.x = 0;
               }
@@ -122,7 +121,6 @@ this.play = function(){
 
           animationLoop()
           function onClick(){
-          console.log(jerry.x);
           jerryHit();
           moveTom();
           if(hit === false){
@@ -130,8 +128,7 @@ this.play = function(){
           slipperArr.pop();
         }
         if(slipperArr.length === 0){
-          $http.post("/updateHighScore" ,{score: scoreNum}).then(function(response){
-            console.log(response);
+          $http.post("/updateHighScore" ,{score: scoreNum}).then((response)=>{
             highScoreNum = response.data
           })
 
@@ -159,14 +156,14 @@ this.play = function(){
 //-------------------------------------------------
 
     //  app.state.addChild(jerryCage)
-    var dashBoard = PIXI.Sprite.fromImage('../assets/dash-board.png')
+    let dashBoard = PIXI.Sprite.fromImage('../assets/dash-board.png')
       dashBoard.anchor.set(0.5);
       dashBoard.scale.set(0.5);
       dashBoard.position.x = app.view.width /2;
       dashBoard.position.y =  app.view.height /9 - (dashBoard.height/2) ;
       dashBoard.width = 1000;
 
-    var currentScore = new PIXI.Text('Current Score :', {
+    let currentScore = new PIXI.Text('Current Score :', {
         fontFamily:'Snippet',
         fontSize: 26,
         fill: '#000',
@@ -209,7 +206,7 @@ this.play = function(){
           Hscore.position.x = app.view.width /2 - 160;
           Hscore.position.y = app.view.height/6 - (Hscore.height/2)
 
-    var HighScore = new PIXI.Text('High Score :', {
+    let HighScore = new PIXI.Text('High Score :', {
         fontFamily:'Snippet',
         fontSize: 26,
         fill: '#000',
@@ -226,7 +223,7 @@ this.play = function(){
 
 
 
-      var Attemps = new PIXI.Text('Attemps :', {
+      let Attemps = new PIXI.Text('Attemps :', {
           fontFamily:'Snippet',
           fontSize: 26,
           fill: '#000',
@@ -241,11 +238,11 @@ this.play = function(){
         Attemps.position.y = app.view.height/ 10 ;
 
 
-      var slipperContainer = new PIXI.Container();
-      var slipperTexture = PIXI.Texture.fromImage('./assets/slipper.png');
+      let slipperContainer = new PIXI.Container();
+      let slipperTexture = PIXI.Texture.fromImage('./assets/slipper.png');
       slipperArr = []
-        for (var i = 0; i < 6; i++) {
-            var slipper = new PIXI.Sprite(slipperTexture);
+        for (let i = 0; i < 6; i++) {
+            let slipper = new PIXI.Sprite(slipperTexture);
             slipperArr.push(slipper)
             slipper.anchor.set(0.5);
             slipper.width = 20;
@@ -254,7 +251,7 @@ this.play = function(){
             slipperContainer.x = app.view.width /2 + 150;
             slipperContainer.y = app.view.height/ 10;
     }
-      slipperArr.forEach(function(val){
+      slipperArr.forEach((val) =>{
       slipperContainer.addChild(val);
     });
     function gameOver(){
@@ -265,7 +262,7 @@ this.play = function(){
 
     }
 
-    var pointer = PIXI.Sprite.fromImage('../assets/pointer.png')
+    let pointer = PIXI.Sprite.fromImage('../assets/pointer.png')
     // center the sprite's anchor point
       pointer.anchor.set(0.5);
       pointer.scale.set(0.5);
@@ -282,7 +279,7 @@ this.play = function(){
      const mouseTracking = () => {
          document.onmousemove = handleMouseMove;
          function handleMouseMove(event) {
-             var dot, eventDoc, doc, body, pageX, pageY;
+             let dot, eventDoc, doc, body, pageX, pageY;
              event = event || window.event; // IE-ism
 
              if (event.pageX == null && event.clientX != null) {
@@ -298,7 +295,7 @@ this.play = function(){
                    (doc && doc.clientTop  || body && body.clientTop  || 0 );
              }
 
-             app.ticker.add(function(delta) {
+             app.ticker.add((delta)=> {
                  tom.position.x = event.pageX;
                  pointer.position.x = event.pageX;
              });

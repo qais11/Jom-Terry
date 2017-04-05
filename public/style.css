@@ -1,11 +1,13 @@
 *:focus{
   outline: none;
 }
+
 body{
   min-height: 100vh;
   margin: 0;
   padding: 0;
 }
+
 .logo-img-container{
   width: 80vw;
   height: 40vh;
@@ -13,11 +15,13 @@ body{
   position: relative;
   top: -360px;
 }
+
 .logo-img{
   width:100%;
   height: 100%;
   opacity: 0.9;
 }
+
 .play-button-container{
   margin: auto;
   text-align: center;
@@ -38,13 +42,14 @@ body{
  text-decoration:none;
  box-shadow: 5px 5px 9px white;
 }
+
 .play-button:hover{
   background: orange;
   background: -webkit-linear-gradient(#ffd966 ,#f90 50% ,#ffd966);
   background: linear-gradient(#ffd966 ,#f90 50% ,#ffd966);
   box-shadow: 5px  5px 4px grey;
-
 }
+
 #game_body_wrapper{
   text-align: center;
   width: 100vw;
@@ -53,6 +58,7 @@ body{
   top: 0;
   position: fixed;
 }
+
 .welcome_wrapper ,.login_wrapper{
   background-image: url("./assets/body-background.jpg");
   background-repeat: no-repeat;
@@ -63,6 +69,7 @@ body{
   background-size: cover;
   text-align: center;
 }
+
 #game-over{
   width: 100%;
   height: 100%;
@@ -73,6 +80,7 @@ body{
   display: none;
   text-align: center;
 }
+
 #game-over > div {
   position: absolute;
   top: 25vh;
@@ -84,39 +92,61 @@ body{
   background: rgba(0, 0, 0, 0.4);
 }
 
+.game-over-logo{
+  -webkit-transition: 1s ease-in-out;
+  -moz-transition: 1s ease-in-out;
+  -o-transition: 1s ease-in-out;
+  transition: 1s ease-in-out;
+}
+
+.game-over-logo:hover{
+  -webkit-transform: rotate(360deg) scale(1.2);
+  -moz-transform: rotate(360deg) scale(1.2);
+  -o-transform: rotate(360deg) scale(1.2);
+  -ms-transform: rotate(360deg) scale(1.2);
+  transform: rotate(360deg) scale(1.2);
+}
 
 .quit-btn{
   margin-top: 10px;
 }
+.user-info{
+  /*-webkit-font-smoothing: antialiased;*/
+
+}
 .user-info p{
   font-size: 32pt;
-  font-family: fantasy;
-  font-weight: bolder;
+  font-family: 'Oswald', sans-serif;  font-weight: bolder;
   text-shadow: 2px 2px 2px lightyellow;
   color: #9c1414;
 }
+
 .about-background{
-  text-align: center;
-  font-family:'Oswald', sans-serif;
-  font-size: 28pt;
-  background-image: -webkit-linear-gradient(top,  #2F2F2F, #191919);
-   background-image: -moz-linear-gradient(top,  #2F2F2F, #191919);
-   background-image: -ms-linear-gradient(top,  #2F2F2F, #191919);
-   background-image: -o-linear-gradient(top,  #2F2F2F, #191919);
-   background-image: linear-gradient(to bottom,  #2F2F2F, #191919);
-   color:white;
-   padding: 30px;
+ text-align: center;
+ font-family:'Oswald', sans-serif;
+ font-size: 28pt;
+ background-image: -webkit-linear-gradient(top,  #2F2F2F, #191919);
+ background-image: -moz-linear-gradient(top,  #2F2F2F, #191919);
+ background-image: -ms-linear-gradient(top,  #2F2F2F, #191919);
+ background-image: -o-linear-gradient(top,  #2F2F2F, #191919);
+ background-image: linear-gradient(to bottom,  #2F2F2F, #191919);
+ color:white;
+ padding: 30px;
 }
+
 em{
   color:red;
 }
+
 .signture{
   color: lightblue;
 }
+
 .about-title{
   color:red;
   font-size:40pt;
 }
+
 .thanks{
   color:lightyellow;
   font-size: 26pt;

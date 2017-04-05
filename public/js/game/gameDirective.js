@@ -5,7 +5,7 @@ angular.module('myApp')
       restrict: 'E'
      , templateUrl:'./js/game/game.html'
     //  ,controller: 'game-controller'
-     ,link : function(scope){
+     ,link : (scope)=>{
     }
   }
 })
