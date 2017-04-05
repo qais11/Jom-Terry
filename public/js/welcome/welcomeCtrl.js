@@ -3,6 +3,6 @@ angular.module('myApp')
   $scope.getCurrentUser = welcomeService.getCurrentUser()
   .then((response)=>{
       $scope.data = response.data
-    return response;
+    
   })
 })

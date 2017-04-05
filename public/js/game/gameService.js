@@ -1,6 +1,6 @@
 angular.module('myApp').service('gameService', function($http){
 this.play = function(){
-   let app = new PIXI.Application( 1220 , 615 ,{ backgroundColor: 000 ,resolution: window.devicePixelRatio , autoResize: true});
+   let app = new PIXI.Application( 1220 , 615 ,{ backgroundColor: "000" ,resolution: window.devicePixelRatio , autoResize: true});
    let scoreNum = 0;
    let score;
    let hit = false;
@@ -11,7 +11,6 @@ this.play = function(){
      Hscore.setText(highScoreNum)
    })
    //----------------------------
-
    let gameWrapper = document.querySelector("#game_body_wrapper")
    gameWrapper.appendChild(app.view);
    //------------------------------
@@ -192,7 +191,7 @@ this.play = function(){
         score.position.x = app.view.width /2 - 140;
         score.position.y = app.view.height/11 - (score.height/2)
 
-        Hscore = new PIXI.Text(highScoreNum, {
+        let Hscore = new PIXI.Text(highScoreNum, {
             fontFamily:'Snippet',
             fontSize: 26,
             fill: '#000',
