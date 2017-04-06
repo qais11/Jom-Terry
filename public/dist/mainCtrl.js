@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('myApp').controller('mainCtrl', function ($scope, mainService, gameService, $state) {
-  var sound = new Howl({
-    src: ['../assets/sounds/theme.mp3'],
-    volume: 0.5
-  });
+  // var sound = new Howl({
+  //   src: ['../assets/sounds/theme.mp3'],
+  //   volume: 0.5,
+  // });
 
   $scope.toggleMusic = gameService.toggleMusic;
 

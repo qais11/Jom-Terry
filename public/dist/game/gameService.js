@@ -17,12 +17,16 @@ angular.module('myApp').service('gameService', function ($http) {
     }
   };
 
-  var self = this;
-  this.gamePlayTheme;
-
   this.play = function () {
-    self.toggleMusic.pause(id);
-    // selef.gamePlayTheme.play()
+    sound.stop(id);
+    var gameMusic = new Howl({
+      src: ['../assets/sounds/gameMusic.mp3'],
+      volume: 0.3
+    });
+    var id = gameMusic.play();
+    gameMusic.loop(true);
+
+    gameMusic.play(id);
     var app = new PIXI.Application(1220, 615, { backgroundColor: "000", resolution: window.devicePixelRatio, autoResize: true });
     var scoreNum = 0;
     var score = void 0;
@@ -65,7 +69,7 @@ angular.module('myApp').service('gameService', function ($http) {
       tom = new PIXI.Sprite(texture);
       texture2.frame = rect2;
       jerry = new PIXI.Sprite(texture2);
-      //
+
       jerry.interactive = true;
       jerry.anchor.set(0.5);
       jerry.scale.set(0.5);
@@ -76,7 +80,7 @@ angular.module('myApp').service('gameService', function ($http) {
       app.stage.addChildAt(jerry, 3);
 
       idle2 = setInterval(function () {
-        if (rect2.x >= 650 * 6) {
+        if (rect2.x >= 650 * 5) {
           rect2.x = 0;
         } else {
           jerry.texture.frame = rect2;
@@ -184,7 +188,6 @@ angular.module('myApp').service('gameService', function ($http) {
 
     //-------------------------------------------------
 
-    //  app.state.addChild(jerryCage)
     var dashBoard = PIXI.Sprite.fromImage('../assets/dash-board.png');
     dashBoard.anchor.set(0.5);
     dashBoard.scale.set(0.5);
@@ -279,18 +282,22 @@ angular.module('myApp').service('gameService', function ($http) {
       slipperContainer.addChild(val);
     });
     function gameOver() {
+      gameMusic.stop(id);
+      var gameOverM = new Howl({
+        src: ['../assets/sounds/womp-womp.mp3'],
+        volume: 0.5
+      });
+      var id = gameOverM.play();
+
       document.getElementById('game-over').style.display = 'block';
       document.getElementById('game-over').style.cursor = 'auto';
       document.getElementById('game-over').style.outline = 'none';
     }
 
     var pointer = PIXI.Sprite.fromImage('../assets/pointer.png');
-    // center the sprite's anchor point
     pointer.anchor.set(0.5);
     pointer.scale.set(0.5);
     pointer.position.y = app.view.height / 3 - pointer.height / 2 - 15;
-    // app.stage.addChild()             //ADDING SPRITES TO THE CANVAS
-
 
     //--------------------------------------
     app.stage.addChild(dashBoard, currentScore, HighScore, Hscore, Attemps, slipperContainer, pointer, score);

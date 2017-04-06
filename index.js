@@ -89,3 +89,5 @@ app.post('/updateHighScore', (req, res, next)=>{
 app.listen(port , () => {
   console.log(`listenin' to prot ${port}`);
 });
+
+module.exports = app
