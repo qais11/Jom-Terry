@@ -1,7 +1,28 @@
 'use strict';
 
 angular.module('myApp').service('gameService', function ($http) {
+
+  var sound = new Howl({
+    src: ['../assets/sounds/theme.mp3'],
+    volume: 0.5
+  });
+  var id = sound.play();
+  sound.loop(true);
+
+  this.toggleMusic = function (bool) {
+    if (bool) {
+      sound.pause(id);
+    } else {
+      sound.play(id);
+    }
+  };
+
+  var self = this;
+  this.gamePlayTheme;
+
   this.play = function () {
+    self.toggleMusic.pause(id);
+    // selef.gamePlayTheme.play()
     var app = new PIXI.Application(1220, 615, { backgroundColor: "000", resolution: window.devicePixelRatio, autoResize: true });
     var scoreNum = 0;
     var score = void 0;
@@ -27,8 +48,9 @@ angular.module('myApp').service('gameService', function ($http) {
     app.stage.addChild(tilingSprite);
 
     var container = new PIXI.Container();
-    PIXI.loader.add('spritSheet1', "../assets/tom/tom_sprite_sheet.png").add('spritSheet2', "../assets/jerry/jerry-sprit-sheet-2.png").load(setup);
+    PIXI.loader.add('spritSheet1', "../assets/tom/tom_sprite_sheet.png").add('spritSheet2', "../assets/jerry/jerry-sprit-sheet-cheese.png").load(setup);
 
+    var jerryScaredTexture = void 0;
     var tom = void 0;
     var idle = void 0;
     var jerry = void 0;
@@ -72,15 +94,34 @@ angular.module('myApp').service('gameService', function ($http) {
       }, 4000);
       //-----------------------------------------------------
 
+      jerryScaredTexture = PIXI.Texture.fromImage('../assets/jerry/jerry-hit.png');
+      var jerryScared = new PIXI.Sprite(jerryScaredTexture);
+      jerryScared.anchor.set(0.5);
+      jerryScared.width = app.view.width / 9;
+      jerryScared.height = app.view.height / 5;
+
+      var jerrySound = new Howl({
+        src: ['../assets/sounds/jerryHit.wav'],
+        volume: 0.5
+      });
+      var id;
+
       function jerryHit() {
         if (jerry.x >= pointer.x - 10 && jerry.x <= pointer.x + 10) {
           scoreNum += 50;
           score.setText(scoreNum);
           hit = true;
+          id = jerrySound.play();
+          jerryScared.x = jerry.x;
+          jerryScared.y = jerry.y;
           jerry.x = -600;
           setTimeout(function () {
             hit = false;
           }, 1000);
+          app.stage.addChild(jerryScared);
+          setTimeout(function () {
+            app.stage.removeChild(jerryScared);
+          }, 1250);
         }
       }
 

@@ -1,5 +1,3 @@
 'use strict';
 
-angular.module('myApp').service('mainService', function () {
-  this.test = 'hi';
-});
+angular.module('myApp').service('mainService', function () {});

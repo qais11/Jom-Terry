@@ -151,3 +151,17 @@ em{
   color:lightyellow;
   font-size: 26pt;
 }
+.music-btn-container{
+  bottom: 64px;
+  position: absolute;
+  right: 50px;
+}
+.music-btn{
+  background: #ffd966;
+  background: -webkit-linear-gradient(#f90, #ffd966 50%, #f90);
+  background: linear-gradient(#f90, #ffd966 50%, #f90);
+  color:red;
+  box-shadow: 3px 3px 9px white;
+  padding: 15px;
+  border-radius: 55px;
+}

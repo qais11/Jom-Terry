@@ -6,8 +6,9 @@
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <title>JomAndTerry</title>
     <link rel="icon" href="./assets/icon.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" media="screen" title="no title">
   </head>
-  <body ng-controller="mainCtrl">
+  <body ng-controller="mainCtrl" ng-init="loadSound()">
     <ui-view></ui-view>
     <div id='game-over'>
      <div>
@@ -37,6 +38,6 @@
     <script src="./dist/welcome/welcomeCtrl.js" charset="utf-8"></script>
     <script src="./dist/welcome/welcomeService.js" charset="utf-8"></script>
     <script src="./dist/logo-animation-dir.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.3/howler.js" charset="utf-8"></script>
   </body>
 </html>
