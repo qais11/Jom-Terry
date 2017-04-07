@@ -10,7 +10,9 @@
   </head>
   <body ng-controller="mainCtrl" ng-init="loadSound()">
     <ui-view></ui-view>
+
     <div id='game-over'>
+      <div id="game-over-wrapper">
      <div>
       <div id="game-over-logo-container">
         <img id="game-over-logo" src="./assets/gameover.png" class="game-over-logo" />
@@ -20,6 +22,7 @@
         <a class="play-button quit-btn" ng-click="goHome()">Quit</a>
       </div>
     </div>
+  </div>
 
 
 

@@ -82,16 +82,15 @@ body{
 }
 
 #game-over > div {
-  position: absolute;
+  position: fixed;
   top: 25vh;
-  left: 35vw;
+  left:35vw;
   background: black;
   padding: 20px;
   border-radius: 105px;
   box-shadow: 1px 1px 30px rgba(255, 0, 0, 0.38);
   background: rgba(0, 0, 0, 0.4);
 }
-
 .game-over-logo{
   -webkit-transition: 1s ease-in-out;
   -moz-transition: 1s ease-in-out;
