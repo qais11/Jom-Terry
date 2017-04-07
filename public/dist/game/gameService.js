@@ -21,7 +21,7 @@ angular.module('myApp').service('gameService', function ($http) {
     sound.stop(id);
     var gameMusic = new Howl({
       src: ['../assets/sounds/gameMusic.mp3'],
-      volume: 0.3
+      volume: 0.2
     });
     var id = gameMusic.play();
     gameMusic.loop(true);
@@ -106,7 +106,7 @@ angular.module('myApp').service('gameService', function ($http) {
 
       var jerrySound = new Howl({
         src: ['../assets/sounds/jerryHit.wav'],
-        volume: 0.5
+        volume: 0.6
       });
       var id;
 
