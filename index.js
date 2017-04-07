@@ -35,8 +35,7 @@ passport.use(new FacebookStrategy({
       return done(null, newUsers[0])
     })
   })
-  // session.user = profile;
-  // return done(null, profile);
+
 }));
 
 

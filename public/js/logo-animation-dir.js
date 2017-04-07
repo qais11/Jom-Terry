@@ -10,6 +10,12 @@ angular.module('myApp')
          position:'static',
          top:0
        } , 1500)
+
+       $('#btn').click(function(){
+         $('#btn').toggleClass('fa-volume-off')
+         $('#btn').toggleClass('fa-volume-up')
+       })
+
      })
   }
 }

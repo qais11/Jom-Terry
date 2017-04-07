@@ -96,7 +96,7 @@ this.play = function(){
             rect2.x += 650;
             }
 
-          }, 55.5);
+          }, 55.9);
 
           setTimeout(()=>{
             app.ticker.add(function(delta) {

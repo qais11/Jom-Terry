@@ -86,7 +86,7 @@ angular.module('myApp').service('gameService', function ($http) {
           jerry.texture.frame = rect2;
           rect2.x += 650;
         }
-      }, 55.5);
+      }, 55.9);
 
       setTimeout(function () {
         app.ticker.add(function (delta) {
