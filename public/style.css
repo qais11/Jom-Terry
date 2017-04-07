@@ -84,7 +84,7 @@ body{
 #game-over > div {
   position: fixed;
   top: 25vh;
-  left:35vw;
+  left: 25vw;
   background: black;
   padding: 20px;
   border-radius: 105px;
