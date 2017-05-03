@@ -23,7 +23,7 @@ app.use(passport.session())
 passport.use(new FacebookStrategy({
   clientID: config.facebook.clientId,
   clientSecret: config.facebook.clientSecret,
-  callbackURL: 'http://localhost:3000/auth/facebook/callback'
+  callbackURL: config.facebook.callbackURL
 }, function (token, refreshToken, profile, done) {
   db.findUser(profile.id, function(err, users) {
     if (err) next(err)
