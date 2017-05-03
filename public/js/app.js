@@ -19,7 +19,7 @@ angular.module('myApp', ['ui.router'])
               })
             .state('about', {
                 url:'/about',
-                templateUrl: "./js/about/about.html",
+                templateUrl: "../js/about/about.html",
               });
 
 $urlRouterProvider

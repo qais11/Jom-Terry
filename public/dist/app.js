@@ -15,7 +15,7 @@ angular.module('myApp', ['ui.router']).config(function ($stateProvider, $urlRout
         controller: "game-controller"
     }).state('about', {
         url: '/about',
-        templateUrl: "./js/about/about.html"
+        templateUrl: "../js/about/about.html"
     });
 
     $urlRouterProvider.otherwise('/');
